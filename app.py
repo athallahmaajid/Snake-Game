@@ -51,6 +51,8 @@ class Snake(tk.Canvas):
             new_head_position = (head_x_position, head_y_position-MOVE_INCREMENT)
         elif self.direction == 'Down':
             new_head_position = (head_x_position, head_y_position+MOVE_INCREMENT)
+        else:
+            pass
         self.snake_positions = [new_head_position] + self.snake_positions[:-1]
         for segment, position in zip(self.find_withtag('snake'), self.snake_positions):
             self.coords(segment, position)
