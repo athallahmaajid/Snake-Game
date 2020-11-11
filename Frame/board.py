@@ -14,14 +14,16 @@ def play_sound(sound):
     pygame.mixer.music.play()
 
 class Board(tk.Canvas):
-    def __init__(self, controller):
+    def __init__(self, container, show_menu):
         super().__init__(width=600, height=620, background='black', highlightthickness=0)
+
+        self.show_menu = show_menu
 
         self.snake_positions = [(100, 100), (80, 100), (60, 100)]
         self.food_position = self.set_new_food()
         self.score = 0
         self.direction = 'Right'
-        self.controller = controller
+        self.container = container
 
         self.bind_all('<Key>', self.on_key_pressed)
         self.load_assets()
@@ -38,7 +40,7 @@ class Board(tk.Canvas):
             self.food = ImageTk.PhotoImage(self.food_image)
         except IOError:
             messagebox.showerror('ERROR', 'Aplikasi mendeteksi adanya kesalahan')
-            self.controller.destroy()
+            self.container.destroy()
     
     def create_object(self):
         self.create_text(100, 12, text=f'Score: {self.score} Speed: {moves_per_second}', tag='score', fill='#fff', font=('Times New Roman', 14))
@@ -116,3 +118,17 @@ class Board(tk.Canvas):
         self.delete(tk.ALL)
         play_sound('super-mario-death-sound-sound-effect.mp3')
         self.create_text(self.winfo_width()/2, self.winfo_height()/2, text=f'Game Over, you are scored {self.score}', fill='#fff', font=('FreeMono', 20))
+        
+        retry_button = tk.Button(self, text='Retry', bg='black', fg='white', width=15, command=self.retry)
+        retry_button.place(x=self.winfo_width()/2-225, y=self.winfo_height()/2+40)
+
+        back_button = tk.Button(self, text='Back', bg='black', fg='white', width=15, command=self.show_menu)
+        back_button.place(x=self.winfo_width()/2-75, y=self.winfo_height()/2+40)
+        
+        quit_button = tk.Button(self, text='Quit', bg='black', fg='white', width=15, command=lambda:self.container.destroy())
+        quit_button.place(x=self.winfo_width()/2+75, y=self.winfo_height()/2+40)
+    
+    def retry(self):
+        self.pack_forget()
+        board_frame = Board(self.container, lambda:self.show_menu)
+        self.container.switch(self.container.board_frame)
