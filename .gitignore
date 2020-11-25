@@ -1,0 +1,2 @@
+# Mengignore seluruh folder __pycache__ yang ada
+**/__pycache__
