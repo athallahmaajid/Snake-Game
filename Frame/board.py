@@ -116,7 +116,7 @@ class Board(tk.Canvas):
 
     def end_game(self):
         self.delete(tk.ALL)
-        play_sound('super-mario-death-sound-sound-effect.mp3')
+        play_sound('super-mario-death-sound-sound-effect.wav')
         self.create_text(self.winfo_width()/2, self.winfo_height()/2, text=f'Game Over, you are scored {self.score}', fill='#fff', font=('FreeMono', 20))
         
         retry_button = tk.Button(self, text='Retry', bg='black', fg='white', width=15, command=self.retry)

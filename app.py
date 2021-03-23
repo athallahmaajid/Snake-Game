@@ -31,7 +31,7 @@ class Main(tk.Tk):
             self.board_frame.destroy()
             self.menu_frame.pack()
         else:
-            self.board_frame = Board(self, lambda:self.switch(self.menu_frame))            
+            self.board_frame = Board(self, lambda:self.switch(self.menu_frame))
             self.menu_frame.pack_forget()
             self.board_frame.pack()
 
