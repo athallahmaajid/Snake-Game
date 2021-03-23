@@ -12,8 +12,10 @@
 	sudo apt-get install python3-tk
 	```
 	windows: 
+	
 	https://tkdocs.com/tutorial/install.html#install-win-python
 	Mac:
+	
 	https://tkdocs.com/tutorial/install.html#install-mac-python
 
 # How to Run
