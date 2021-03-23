@@ -4,7 +4,6 @@
 
 	```
 	pip install pygame
-
 	````
 2. Tkinter, How to install:
 
