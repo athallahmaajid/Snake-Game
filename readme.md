@@ -7,6 +7,7 @@
 
 	````
 2. Tkinter, How to install:
+
 	Ubuntu:
 	```
 	sudo apt-get install python3-tk
