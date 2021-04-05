@@ -14,6 +14,10 @@
 	Mac:
 	
 	https://tkdocs.com/tutorial/install.html#install-mac-python
+3. Pillow, How to Install:
+	```
+	pip install pillow
+	```
 
 # How to Run
 ```
