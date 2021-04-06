@@ -16,7 +16,6 @@ def play_sound(sound):
 class Board(tk.Canvas):
     def __init__(self, container, show_menu):
         super().__init__(width=600, height=620, background='black', highlightthickness=0)
-
         self.show_menu = show_menu
 
         self.snake_positions = [(100, 100), (80, 100), (60, 100)]
@@ -41,12 +40,11 @@ class Board(tk.Canvas):
         except IOError:
             messagebox.showerror('ERROR', 'Aplikasi mendeteksi adanya kesalahan')
             self.container.destroy()
-    
+
     def create_object(self):
-        self.create_text(100, 12, text=f'Score: {self.score} Speed: {moves_per_second}', tag='score', fill='#fff', font=('Times New Roman', 14))
+        self.create_text(120, 12, text=f'Score: {self.score} Speed: {moves_per_second}', tag='score', fill='#fff', font=('Times New Roman', 14))
         for x, y in self.snake_positions:
             self.create_image(x, y, image=self.snake_body, tag='snake')
-        
         self.create_image(self.food_position[0], self.food_position[1], image=self.food,  tag='food')
         self.create_rectangle(7, 27, 593, 613, outline='#525d69')
 
@@ -65,7 +63,7 @@ class Board(tk.Canvas):
         self.snake_positions = [new_head_position] + self.snake_positions[:-1]
         for segment, position in zip(self.find_withtag('snake'), self.snake_positions):
             self.coords(segment, position)
-    
+
     def perform_actions(self):
         if self.check_collision():
             self.end_game()
@@ -73,7 +71,7 @@ class Board(tk.Canvas):
         self.check_food_collision()
         self.move_snake()
         self.after(GAME_SPEED, self.perform_actions)
-    
+
     def check_collision(self):
         head_x_position, head_y_position = self.snake_positions[0]
         return (
@@ -96,7 +94,7 @@ class Board(tk.Canvas):
             if (self.score % 5) == 0:
                 moves_per_second += 1
             self.snake_positions.append(self.snake_positions[-1])
-            
+
             self.create_image(*self.snake_positions[-1], image=self.snake_body, tag='snake')
 
             self.food_position = self.set_new_food()
@@ -118,17 +116,17 @@ class Board(tk.Canvas):
         self.delete(tk.ALL)
         play_sound('super-mario-death-sound-sound-effect.wav')
         self.create_text(self.winfo_width()/2, self.winfo_height()/2, text=f'Game Over, you are scored {self.score}', fill='#fff', font=('FreeMono', 20))
-        
+
         retry_button = tk.Button(self, text='Retry', bg='black', fg='white', width=15, command=self.retry)
         retry_button.place(x=self.winfo_width()/2-225, y=self.winfo_height()/2+40)
 
         back_button = tk.Button(self, text='Back', bg='black', fg='white', width=15, command=self.show_menu)
         back_button.place(x=self.winfo_width()/2-75, y=self.winfo_height()/2+40)
-        
+
         quit_button = tk.Button(self, text='Quit', bg='black', fg='white', width=15, command=lambda:self.container.destroy())
         quit_button.place(x=self.winfo_width()/2+75, y=self.winfo_height()/2+40)
-    
+
     def retry(self):
-        self.pack_forget()
+        self.destroy()
         board_frame = Board(self.container, lambda:self.show_menu)
-        self.container.switch(self.container.board_frame)
+        self.container.self_pack(board_frame)

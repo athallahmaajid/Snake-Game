@@ -19,10 +19,9 @@ def play_sound(sound):
 class Main(tk.Tk):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
         self.menu_frame = Menu(self, lambda:self.switch(self.board_frame))
         self.menu_frame.pack()
-
+        self.resizable(False, False)
         self.board_frame = Board(self, lambda:self.switch(self.menu_frame))
 
         self.switch(self.menu_frame)
@@ -34,6 +33,8 @@ class Main(tk.Tk):
             self.board_frame = Board(self, lambda:self.switch(self.menu_frame))
             self.menu_frame.pack_forget()
             self.board_frame.pack()
+    def self_pack(self, frame):
+        frame.pack()
 
 master = Main()
 
